@@ -1,0 +1,66 @@
+﻿@model CRMFacilitoInicial.Models.Actividad
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Actividad</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaInicial)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaInicial)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaFinal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaFinal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaInicialPlan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaInicialPlan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaFinalPlan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaFinalPlan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estado)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ActividadId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

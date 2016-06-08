@@ -1,0 +1,63 @@
+﻿@model IEnumerable<CRMFacilitoInicial.Models.Actividad>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaInicial)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaFinal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaInicialPlan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaFinalPlan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estado)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaInicial)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaFinal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaInicialPlan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaFinalPlan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Estado)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ActividadId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ActividadId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ActividadId })
+        </td>
+    </tr>
+}
+
+</table>

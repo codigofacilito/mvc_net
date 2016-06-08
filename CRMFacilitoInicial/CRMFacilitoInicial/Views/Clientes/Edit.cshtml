@@ -1,0 +1,240 @@
+﻿@model CRMFacilitoInicial.Models.Cliente
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Cliente</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ClienteId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RFC, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RFC, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RFC, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TipoPersonaSat, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.TipoPersonaSat, ViewData["list"] as SelectList, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TipoPersonaSat, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TipoClienteId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.TipoClienteId, ViewData["tipos"] as SelectList,
+                "--SELECCIONE EL TIPO DE CLIENTE", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TipoClienteId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+    </div>
+}
+
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                    Telefonos
+                </a>
+            </h4>
+        </div>
+        <div id="collapse1" class="panel-collapse collapse">
+            <div class="panel-body">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label for="Telefono">Telefono</label>
+                        <input type="text" id="Telefono" class="form-control" />
+                        <span class="error">El teléfono es requerido</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Tipo">Tipo</label>
+                        <input type="text" id="Tipo" class="form-control" />
+                        <span class="error">El tipo es requerido</span>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="TelPrincipal" value="1" class="form-control" /> Principal
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="button" id="add" value="agregar" class="btn btn-primary form-control" />
+                    </div>
+                </form>
+                <br />
+                <div id="telItems" class="container">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                    Direcciones de correo electrónico
+                </a>
+            </h4>
+        </div>
+        <div id="collapse2" class="panel-collapse collapse">
+            <div class="panel-body">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label for="Email">Email</label>
+                        <input type="text" id="Email" class="form-control" width="100" />
+                        <span class="error">La dirección de correo electrónico es requerido</span>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="EmailPrincipal" value="1" class="form-control"> Principal
+                            </label>
+                        </div>
+                        <span class="error"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="button" id="addEmail" value="agregar" class="btn btn-primary form-control" />
+                    </div>
+                </form>
+                <br />
+                <div id="emailItems" class="container">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+                    Direcciones
+                </a>
+            </h4>
+        </div>
+        <div id="collapse3" class="panel-collapse collapse">
+            <div class="panel-body">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label for="Calle">Calle</label>
+                        <input type="text" id="Calle" class="form-control" width="100" />
+                        <span class="error">La calle es requerida</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="NumExterior">Número exterior</label>
+                        <input type="text" id="NumExterior" class="form-control" width="100" />
+                        <span class="error">El número exterior es requerido</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="NumInterior">Número interior</label>
+                        <input type="text" id="NumInterior" class="form-control" width="100" />
+                        <span class="error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Colonia">Colonia</label>
+                        <input type="text" id="Colonia" class="form-control" width="100" />
+                        <span class="error">La colonia es requerida</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Municipio">Municipio</label>
+                        <input type="text" id="Municipio" class="form-control" width="100" />
+                        <span class="error">El municipio</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Estado">Estado</label>
+                        <input type="text" id="Estado" class="form-control" width="100" />
+                        <span class="error">El Estado es requerido</span>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="DirPrincipal" value="1" class="form-control"> Principal
+                            </label>
+                        </div>
+                        <span class="error"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="button" id="addDireccion" value="agregar" class="btn btn-primary form-control" />
+                    </div>
+                </form>
+                <br />
+                <div id="direccionesItems" class="container">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" value="Modificar" class="btn btn-primary" id="submit" />
+    </div>
+</div>
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="@Url.Content("~/Scripts/Listas.js")"></script>
+    <script src="@Url.Content("~/Scripts/FuncionesCliente.js")"></script>
+    <script>
+        function LlenartelefonosDelModelo() {
+            @foreach (var d in Model.Telefonos)
+        {
+            @:telItems.Agregar( @Html.Raw(Json.Encode(d)));
+                    }
+        }
+
+        function LlenaremailsDelModelo() {
+            @foreach (var d in Model.Correos)
+        {
+            @:emailItems.Agregar( @Html.Raw(Json.Encode(d)));
+                    }
+        }
+        function LlenardireccionesDelModelo() {
+            @foreach (var d in Model.Direcciones)
+        {
+            @:direccionesItems.Agregar( @Html.Raw(Json.Encode(d)));
+                    }
+        }
+
+        $(document).ready(function () {
+            LlenartelefonosDelModelo();
+            LlenardireccionesDelModelo();
+            LlenaremailsDelModelo();
+            MostrarTelefonos(true);
+            MostrarEmail(true);
+            MostrarDirecciones(true);
+            $('#add').click(addTel_Click);
+            $('#addEmail').click(addEmail_Click);
+            $('#addDireccion').click(addDir_Click);
+            $('#submit').click(modificar_Click);
+        });
+    </script>
+}
