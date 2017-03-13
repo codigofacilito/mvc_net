@@ -4,60 +4,68 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a class="btn btn-default" data-target="#modal-crear" data-toggle="modal"
+       href="/Actividades/Create">Crear nueva</a>
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FechaInicial)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FechaFinal)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FechaInicialPlan)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FechaFinalPlan)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Estado)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaInicial)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaFinal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaInicialPlan)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaFinalPlan)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Estado)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ActividadId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ActividadId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ActividadId })
-        </td>
-    </tr>
-}
+<div id="calendar">
+</div>
 
-</table>
+<div class="modal fade" id="modal-crear" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-editar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+</div>
+
+        @section Scripts {
+            <script src="@Url.Content("~/Scripts/moment.min.js")"></script>
+            <script src="@Url.Content("~/Scripts/fullcalendar.js")"></script>
+            <script src="@Url.Content("~/Scripts/lang/es.js")"></script>
+
+            <script>
+                function closeModalCreate(data) {
+                    if (data.success) {
+                        $('#modal-crear').modal('hide');
+                        window.location.href = "/actividades/index";
+                    }
+                }
+
+                function closeModalEdit(data) {
+                    if (data.success) {
+                        $('#modal-editar').modal('hide');
+                        window.location.href = "/actividades/index";
+                    }
+                }
+                
+                $(document).ready(function () {
+                    $("#calendar").fullCalendar({
+                        lang: 'es',
+                        events: '/Actividades/Eventos',
+                        eventClick: function (event, element) {
+                            var serviceUrl = '/Actividades/Edit/' + event.id;
+                            $.ajax({
+                                type: "GET",
+                                url: serviceUrl,
+                                data: $(this).serialize(),
+                                success: successFunc
+                            });
+                        }
+                    });
+
+                    function successFunc(data, status) {
+                        $('#modal-editar').html(data);
+                        $('.datepicker').datepicker({
+                            format: 'dd/mm/yyyy',
+                            autoclose: true,
+                            language: 'es'
+                        });
+                        $('#modal-editar').modal('show');
+                    }
+                });
+            </script>
+        }

@@ -1,10 +1,8 @@
 ﻿@model CRMFacilitoInicial.Models.Cliente
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalle";
 }
-
-<h2>Details</h2>
 
 <div>
     <h4>Cliente</h4>
@@ -34,9 +32,92 @@
             @Html.DisplayFor(model => model.TipoPersonaSat)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Tipo.NombreTipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tipo.NombreTipo)
+        </dd>
+
     </dl>
 </div>
+
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                Telefonos
+            </h4>
+        </div>
+        <div class="panel-body">
+            <div id="telItems" class="container">
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                Direcciones de correo electrónico
+            </h4>
+        </div>
+        <div class="panel-body">
+            <div id="emailItems" class="container">
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                Direcciones
+            </h4>
+        </div>
+        <div class="panel-body">
+            <div id="direccionesItems" class="container">
+            </div>
+        </div>
+    </div>
+</div>
+
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ClienteId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Regresar a la lista", "Index")
 </p>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="@Url.Content("~/Scripts/Listas.js")"></script>
+    <script src="@Url.Content("~/Scripts/FuncionesCliente.js")"></script>
+    <script>
+        function LlenartelefonosDelModelo() {
+            @foreach (var d in Model.Telefonos)
+        {
+            @:telItems.Agregar( @Html.Raw(Json.Encode(d)));
+                    }
+        }
+
+        function LlenaremailsDelModelo() {
+            @foreach (var d in Model.Correos)
+        {
+            @:emailItems.Agregar( @Html.Raw(Json.Encode(d)));
+                    }
+        }
+        function LlenardireccionesDelModelo() {
+            @foreach (var d in Model.Direcciones)
+        {
+            @:direccionesItems.Agregar( @Html.Raw(Json.Encode(d)));
+                    }
+        }
+
+        $(document).ready(function () {
+            LlenartelefonosDelModelo();
+            LlenardireccionesDelModelo();
+            LlenaremailsDelModelo();
+            MostrarTelefonos(false);
+            MostrarEmail(false);
+            MostrarDirecciones(false);
+        });
+    </script>
+}
+
+

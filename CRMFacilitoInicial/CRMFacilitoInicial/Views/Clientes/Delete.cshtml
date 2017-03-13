@@ -1,15 +1,11 @@
 ﻿@model CRMFacilitoInicial.Models.Cliente
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Eliminar";
 }
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
+<h3>¿Está seguro de querer eliminar el cliente?</h3>
 <div>
-    <h4>Cliente</h4>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Nombre)
@@ -35,14 +31,22 @@
             @Html.DisplayFor(model => model.TipoPersonaSat)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Tipo.NombreTipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tipo.NombreTipo)
+        </dd>
+
     </dl>
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Regresa a la lista", "Index")
         </div>
     }
 </div>

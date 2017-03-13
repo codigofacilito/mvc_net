@@ -1,18 +1,15 @@
-﻿@model CRMFacilitoInicial.Models.Campania
+﻿@model CRMFacilitoInicial.Models.CampaniaViewModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Editar";
 }
-
-<h2>Edit</h2>
-
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Campania</h4>
+        <h4>Editar Campaña</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.CampaniaId)
@@ -26,33 +23,106 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.FechaPlan, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FechaPlan, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FechaPlan, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.Fecha, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Fecha, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.Fecha, "{0:dd/MM/yyyy}",  new { @class = "form-control datepicker" } )
                 @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.Publicada, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.CheckBoxFor(model => model.Publicada, new { @class = "form-control" } )
+                @Html.ValidationMessageFor(model => model.Publicada, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Guardar" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
+<div class="container">
+    <div class="form-group">
+        <label class="control-label col-md-2">Id del cliente:</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ClienteId, new { htmlAttributes = new { @class = "form-control", id = "ClienteId" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Nombre del cliente:</label>
+        <div class="col-md-10">
+            @Html.TextBox("nombreCliente", null, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Agregar" class="btn btn-default" id="btnAgregar" />
+        </div>
+    </div>
+</div>
+<br/>
+
+<div class="container">
+    <img class="loadercentrado" id="image_loading" src="~/imgs/loading.gif" width="30" height="30" style="display:none" />
+</div>
+
+<div id="ajaxtarget">
+</div>
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Regresar a la lista", "Index")
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        function LlenaDetalle() {
+            var serviceURL = '/Campanias/MuestraDetalle?idCampania=' + $("#CampaniaId").val();
+            $.get(serviceURL, function(data) {
+                $("#ajaxtarget").html(data);
+            });
+        }
+
+        $(document).ready(function () {
+            LlenaDetalle();
+        });
+
+        $('.datepicker').datepicker({
+            format: 'dd/mm/yyyy',
+            autoclose: true,
+            language: 'es'
+        });
+        $('#nombreCliente')
+                    .autocomplete({
+                        source: '@Url.Action("Lista", "Clientes")',
+                        select: function (event, ui) {
+                            //alert('you have selected ' + ui.item.value + ' ID: ' + ui.item.id);
+                            $('#ClienteId').val(ui.item.id);
+                            $('#nombreCliente').val(ui.item.value);
+                            return false;
+                        }
+                    });
+        $("#btnAgregar").click(function (event, element) {
+            if($("#ClienteId").val() != null)
+                if($("#ClienteId").val() > 0)
+                {
+                    var ruta = "/Campanias/AgregaActividad?idCampania=" + $("#CampaniaId").val() +
+                                "&idCliente=" + $("#ClienteId").val();
+                    $.ajax({
+                        type: "POST",
+                        url: ruta,
+                        fata: $(this).serialize(),
+                        success: function (data) {
+                            $("#ajaxtarget").html(data);
+                        }
+                    })
+
+                }
+        });
+    </script>
 }

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<CRMFacilitoInicial.Models.ActividadViewModel>
+           @{
+               ViewBag.Title = "_ListadoActividades";
+           }
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NombreTipo)
+        </th>
+        <th>Opciones</th>
+    </tr>
+
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreTipo)
+                </td>
+                <td>
+                    <a href="@Url.Action("EliminaActividad", new {idActividad = item.ActividadId})" class="btn btn-default"
+                       data-toggle="tooltip" title="Eliminar cliente">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </a>
+                </td>
+            </tr>
+        }
+    }
+</table>
+<script>
+    $('[data-toggle="tooltip"]').tooltip();
+</script>

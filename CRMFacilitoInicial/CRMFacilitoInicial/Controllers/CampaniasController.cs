@@ -38,7 +38,8 @@ namespace CRMFacilitoInicial.Controllers
         // GET: Campanias/Create
         public ActionResult Create()
         {
-            return View();
+            CampaniaViewModel campania = new CampaniaViewModel();
+            return PartialView(campania);
         }
 
         // POST: Campanias/Create
@@ -46,16 +47,42 @@ namespace CRMFacilitoInicial.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CampaniaId,Nombre,FechaPlan,Fecha")] Campania campania)
+        public ActionResult Create([Bind(Include = "CampaniaId,Nombre,Fecha,IncluyeProspectos")] 
+                                    CampaniaViewModel campaniavm)
         {
             if (ModelState.IsValid)
             {
+                Campania campania = new Campania();
+                campania.Nombre = campaniavm.Nombre;
+                campania.Fecha = campaniavm.Fecha;
+                campania.FechaPlan = campaniavm.Fecha;
+                campania.Publicada = false;
+                if (campaniavm.IncluyeProspectos)
+                {
+                    var prospectos = (from c in db.Clientes
+                                      where c.TipoClienteId == 1
+                                      select c).ToList();
+                    foreach (var item in prospectos)
+                    {
+                        campania.Actividades.Add(new Actividad
+                            {
+                                ClienteId = item.ClienteId,
+                                FechaFinal = campania.Fecha.AddDays(-15),
+                                FechaFinalPlan = campania.Fecha.AddDays(-15),
+                                FechaInicial = campania.Fecha.AddDays(-15),
+                                FechaInicialPlan = campania.Fecha.AddDays(-15),
+                                Descripcion = "Llamar por telefono al cliente para la campaña " + campania.Nombre,
+                                TipoActividadId = 6,
+                                Estado = 0
+                            });
+                    }
+                }
                 db.Campanias.Add(campania);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Json (new {success = true});
             }
 
-            return View(campania);
+            return PartialView(campaniavm);
         }
 
         // GET: Campanias/Edit/5
@@ -70,7 +97,12 @@ namespace CRMFacilitoInicial.Controllers
             {
                 return HttpNotFound();
             }
-            return View(campania);
+            CampaniaViewModel fcampania = new CampaniaViewModel();
+            fcampania.CampaniaId = campania.CampaniaId;
+            fcampania.Fecha = campania.Fecha;
+            fcampania.Nombre = campania.Nombre;
+            fcampania.Publicada = campania.Publicada;
+            return View(fcampania);
         }
 
         // POST: Campanias/Edit/5
@@ -113,6 +145,43 @@ namespace CRMFacilitoInicial.Controllers
             db.Campanias.Remove(campania);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult MuestraDetalle(int idCampania)
+        {
+            CampaniaViewModel campania = new CampaniaViewModel();
+            List<ActividadViewModel> actividades = campania.GetActividades(idCampania);
+            campania.Dispose();
+            return PartialView("_ListadoActividades", actividades);
+        }
+
+        public ActionResult AgregaActividad(int idCampania, int idCliente)
+        {
+            CampaniaViewModel fcampania = new CampaniaViewModel();
+            if (!fcampania.ExisteCliente(idCampania, idCliente))
+                fcampania.AgregaCliente(idCampania, idCliente);
+            List<ActividadViewModel> actividades = new List<ActividadViewModel>();
+            actividades = fcampania.GetActividades(idCampania);
+            fcampania.Dispose();
+            return PartialView("_ListadoActividades", actividades);
+        }
+        public ActionResult EliminaActividad(int idActividad)
+        {
+            Actividad actividad = db.Actividades.Find(idActividad);
+            if (actividad != null)
+            {
+                int idCampania = (int)actividad.CampaniaId;
+                db.Actividades.Remove(actividad);
+                db.SaveChanges();
+                Campania campania = db.Campanias.Find(idCampania);
+                CampaniaViewModel fcampania = new CampaniaViewModel();
+                fcampania.CampaniaId = campania.CampaniaId;
+                fcampania.Fecha = campania.Fecha;
+                fcampania.Nombre = campania.Nombre;
+                return View("Edit", fcampania);
+            }
+            else
+                return HttpNotFound();
         }
 
         protected override void Dispose(bool disposing)

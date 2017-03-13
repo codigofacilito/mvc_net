@@ -29,15 +29,11 @@
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary("", new { @class = "text-error" })
                         <div class="form-group">
-                            @Html.LabelFor(t => t.NombreBuscar, new { @class = "col-md-2 control-label" })
-                            <div class="col-md-10">
-                                @Html.TextBoxFor(t => t.NombreBuscar, new { @style = "width : 400px" })
-                            </div>
-                            <div class="form-group">
-                                <div class="col-lg-offset-2 col-lg-10">
-                                    <input type="submit" class="btn btn-default" value="Buscar" />
-                                </div>
-                            </div>
+                            @Html.LabelFor(t => t.NombreBuscar, new { @class = "control-label" })
+                            @Html.TextBoxFor(t => t.NombreBuscar, new { @style = "width : 400px", @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-default" value="Buscar" />
                         </div>
                     }
                 </div>

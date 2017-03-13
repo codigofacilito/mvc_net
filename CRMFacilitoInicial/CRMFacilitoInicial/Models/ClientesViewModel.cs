@@ -17,6 +17,18 @@ namespace CRMFacilitoInicial.Models
 
         public List<ClientesBusqueda> Clientes { get; set; }
 
+        public List<Item> ClientesAutocompletado(string busqueda)
+        {
+            var consulta = from c in contexto.Clientes
+                           where c.Nombre.Contains(busqueda)
+                           select new Item
+                           {
+                               id = c.ClienteId.ToString(),
+                               value = c.Nombre
+                           };
+            return consulta.ToList();
+        }
+
         public void BuscaPorNombre(string busqueda)
         {
             var consulta = from c in contexto.Clientes

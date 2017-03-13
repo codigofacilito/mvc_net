@@ -15,6 +15,13 @@ namespace CRMFacilitoInicial.Models
 
         public DateTime Fecha { get; set; }
 
+        public bool Publicada { get; set; }
+
         public ICollection<Actividad> Actividades { get; set; }
+
+        public Campania()
+        {
+            Actividades = new List<Actividad>();
+        }
     }
 }

@@ -77,3 +77,5 @@ C:\Users\marcos\Documents\Visual Studio 2013\Projects\CursoMVCFacilito\CRMFacili
 C:\Users\marcos\Documents\Visual Studio 2013\Projects\CursoMVCFacilito\CRMFacilitoInicial\CRMFacilitoInicial\obj\Debug\CRMFacilitoInicial.Migrations.clasesSistema.resources
 C:\Users\marcos\Documents\Visual Studio 2013\Projects\CursoMVCFacilito\CRMFacilitoInicial\CRMFacilitoInicial\obj\Debug\CRMFacilitoInicial.csprojResolveAssemblyReference.cache
 C:\Users\marcos\Documents\Visual Studio 2013\Projects\CursoMVCFacilito\CRMFacilitoInicial\CRMFacilitoInicial\obj\Debug\CRMFacilitoInicial.Migrations.TipoClienteId.resources
+C:\Users\marcos\Documents\Visual Studio 2013\Projects\CursoMVCFacilito\CRMFacilitoInicial\CRMFacilitoInicial\obj\Debug\CRMFacilitoInicial.Migrations.modifica_actividades.resources
+C:\Users\marcos\Documents\Visual Studio 2013\Projects\CursoMVCFacilito\CRMFacilitoInicial\CRMFacilitoInicial\obj\Debug\CRMFacilitoInicial.Migrations.modifica_campias.resources

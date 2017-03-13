@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>Microsoft.Owin.Security.Facebook</name>
+  </assembly>
+  <members>
+    <member name="T:Microsoft.Owin.Security.Facebook.FacebookApplyRedirectContext">
+      <summary>El contexto se pasa cuando un elemento Challenge da lugar a un redireccionamiento para autorizar un extremo en el middleware de Facebook</summary>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Facebook.FacebookApplyRedirectContext.#ctor(Microsoft.Owin.IOwinContext,Microsoft.Owin.Security.Facebook.FacebookAuthenticationOptions,Microsoft.Owin.Security.AuthenticationProperties,System.String)">
+      <summary>Crea un objeto de contexto nuevo.</summary>
+      <param name="context">Contexto de solicitud OWIN</param>
+      <param name="options">Opciones de middleware de Facebook</param>
+      <param name="properties">Propiedades de autenticación del desafío</param>
+      <param name="redirectUri">URI de redireccionamiento inicial</param>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Facebook.FacebookApplyRedirectContext.Properties">
+      <summary>Obtiene las propiedades de autenticación del desafío</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Facebook.FacebookApplyRedirectContext.RedirectUri">
+      <summary>Obtiene el URI usado para la operación de redireccionamiento.</summary>
+    </member>
+    <member name="T:Microsoft.Owin.Security.Facebook.FacebookAuthenticatedContext">
+      <summary>Contiene información acerca de la sesión de inicio de sesión, así como el objeto <see cref="T:System.Security.Claims.ClaimsIdentity" /> del usuario.</summary>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Facebook.FacebookAuthenticatedContext.#ctor(Microsoft.Owin.IOwinContext,Newtonsoft.Json.Linq.JObject,System.String,System.String)">
+      <summary>Inicializa un objeto <see cref="T:Microsoft.Owin.Security.Facebook.FacebookAuthenticatedContext" /></summary>
+      <param name="context">El entorno OWIN.</param>
+      <param name="user">El usuario serializado por JSON</param>
+      <param name="accessToken">Token de acceso a Facebook.</param>
+      <param name="expires">Segundos para la expiración.</param>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Facebook.FacebookAuthenticatedContext.AccessToken">
+      <summary>Obtiene el token de acceso de Facebook</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Facebook.FacebookAuthenticatedContext.Email">
+      <summary>Obtiene el correo electrónico de Facebook</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Facebook.FacebookAuthenticatedContext.ExpiresIn">
+      <summary>Obtiene el tiempo para que expire el token de acceso a Facebook.</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Facebook.FacebookAuthenticatedContext.Id">
+      <summary>Obtiene el identificador de usuario de Facebook</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Facebook.FacebookAuthenticatedContext.Identity">
+      <summary>Obtiene el objeto <see cref="T:System.Security.Claims.ClaimsIdentity" /> que representa el usuario</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Facebook.FacebookAuthenticatedContext.Link">
+      <summary>Obtiene o establece el vínculo con <see cref="T:Microsoft.Owin.Security.Facebook.FacebookAuthenticatedContext" />.</summary>
+      <returns>Vínculo con <see cref="T:Microsoft.Owin.Security.Facebook.FacebookAuthenticatedContext" />.</returns>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Facebook.FacebookAuthenticatedContext.Name">
+      <summary>Obtiene el nombre del usuario</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Facebook.FacebookAuthenticatedContext.Properties">
+      <summary>Obtiene o establece un contenedor de propiedades para las propiedades de autenticación comunes</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Facebook.FacebookAuthenticatedContext.User">
+      <summary>Obtiene el usuario serializado por JSON</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Facebook.FacebookAuthenticatedContext.UserName">
+      <summary>Obtiene el nombre de usuario de Facebook</summary>
+    </member>
+    <member name="T:Microsoft.Owin.Security.Facebook.FacebookAuthenticationMiddleware">
+      <summary>Middleware de OWIN para la autenticación de usuarios mediante Facebook</summary>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Facebook.FacebookAuthenticationMiddleware.#ctor(Microsoft.Owin.OwinMiddleware,Owin.IAppBuilder,Microsoft.Owin.Security.Facebook.FacebookAuthenticationOptions)">
+      <summary>Inicializa un objeto <see cref="T:Microsoft.Owin.Security.Facebook.FacebookAuthenticationMiddleware" /></summary>
+      <param name="next">El siguiente middleware en la canalización OWIN que se debe invocar</param>
+      <param name="app">La aplicación OWIN</param>
+      <param name="options">Las opciones de configuración del middleware</param>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Facebook.FacebookAuthenticationMiddleware.CreateHandler">
+      <summary>Proporciona el objeto <see cref="T:Microsoft.Owin.Security.Infrastructure.AuthenticationHandler" /> para el procesamiento de las solicitudes relacionadas con la autenticación.</summary>
+      <returns>Un objeto <see cref="T:Microsoft.Owin.Security.Infrastructure.AuthenticationHandler" /> configurado con el objeto <see cref="T:Microsoft.Owin.Security.Facebook.FacebookAuthenticationOptions" /> que se proporciona al constructor.</returns>
+    </member>
+    <member name="T:Microsoft.Owin.Security.Facebook.FacebookAuthenticationOptions">
+      <summary>Opciones de configuración para <see cref="T:Microsoft.Owin.Security.Facebook.FacebookAuthenticationMiddleware" /></summary>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Facebook.FacebookAuthenticationOptions.#ctor">
+      <summary>Inicializa un objeto <see cref="T:Microsoft.Owin.Security.Facebook.FacebookAuthenticationOptions" /> nuevo.</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Facebook.FacebookAuthenticationOptions.AppId">
+      <summary>Obtiene o establece el objeto AppId asignado de Facebook.</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Facebook.FacebookAuthenticationOptions.AppSecret">
+      <summary>Obtiene o establece el secreto de aplicación asignado de Facebook.</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Facebook.FacebookAuthenticationOptions.BackchannelCertificateValidator">
+      <summary>Obtiene o define un validador de certificado anclado que se usará para validar los extremos que se usan en las comunicaciones de canal secundario que pertenecen a Facebook.</summary>
+      <returns>El validador de certificado anclado.</returns>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Facebook.FacebookAuthenticationOptions.BackchannelHttpHandler">
+      <summary>HttpMessageHandler que se usa para comunicarse con Facebook.Esto no puede establecerse al mismo tiempo que el objeto BackchannelCertificateValidator a menos que el valor se pueda convertir a tipo heredado de un objeto WebRequestHandler.</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Facebook.FacebookAuthenticationOptions.BackchannelTimeout">
+      <summary>Obtiene o define un valor de tiempo de espera en milisegundos para las comunicaciones de canal secundario con Facebook.</summary>
+      <returns>Tiempo de espera de canal secundario en milisegundos.</returns>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Facebook.FacebookAuthenticationOptions.CallbackPath">
+      <summary>La ruta de acceso de la solicitud en la ruta de acceso base de la aplicación en la que se devolverá el agente de usuario.El middleware procesará esta solicitud cuando llegue.El valor predeterminado es "/signin-facebook".</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Facebook.FacebookAuthenticationOptions.Caption">
+      <summary>Obtiene o establece el texto que el usuario puede mostrar en una interfaz de usuario de inicio de sesión.</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Facebook.FacebookAuthenticationOptions.Provider">
+      <summary>Obtiene o establece el objeto <see cref="T:Microsoft.Owin.Security.Facebook.IFacebookAuthenticationProvider" /> que se utiliza para controlar los eventos de autenticación.</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Facebook.FacebookAuthenticationOptions.Scope">
+      <summary>Una lista de los permisos que se deben solicitar.</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Facebook.FacebookAuthenticationOptions.SendAppSecretProof">
+      <summary>Obtiene o establece si se debe generar appsecret_proof y enviarse con las llamadas de la API de Facebook.Este valor está habilitado de forma predeterminada.</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Facebook.FacebookAuthenticationOptions.SignInAsAuthenticationType">
+      <summary>Obtiene o establece el nombre de otro middleware de autenticación que será responsable de emitir realmente un objeto <see cref="T:System.Security.Claims.ClaimsIdentity" /> de usuario.</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Facebook.FacebookAuthenticationOptions.StateDataFormat">
+      <summary>Obtiene o establece el tipo que se usa para proteger los datos que controla el middleware.</summary>
+    </member>
+    <member name="T:Microsoft.Owin.Security.Facebook.FacebookAuthenticationProvider">
+      <summary>Implementación de <see cref="T:Microsoft.Owin.Security.Facebook.IFacebookAuthenticationProvider" /> predeterminada.</summary>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Facebook.FacebookAuthenticationProvider.#ctor">
+      <summary>Inicializa un objeto <see cref="T:Microsoft.Owin.Security.Facebook.FacebookAuthenticationProvider" /></summary>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Facebook.FacebookAuthenticationProvider.ApplyRedirect(Microsoft.Owin.Security.Facebook.FacebookApplyRedirectContext)">
+      <summary>Se llama cuando un elemento Challenge da lugar a un redireccionamiento para autorizar un extremo en el middleware de Facebook</summary>
+      <param name="context">Contiene el URI de redireccionamiento y <see cref="T:Microsoft.Owin.Security.AuthenticationProperties" /> del desafío</param>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Facebook.FacebookAuthenticationProvider.Authenticated(Microsoft.Owin.Security.Facebook.FacebookAuthenticatedContext)">
+      <summary>Se invoca cuando Facebook autentica un usuario correctamente</summary>
+      <returns>Un objeto <see cref="T:System.Threading.Tasks.Task" /> que representa la operación completada.</returns>
+      <param name="context">Contiene información acerca de la sesión de inicio de sesión, así como el objeto <see cref="T:System.Security.Claims.ClaimsIdentity" /> del usuario.</param>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Facebook.FacebookAuthenticationProvider.OnApplyRedirect">
+      <summary>Obtiene o establece el delegado que se invoca cuando se invoca el método ApplyRedirect.</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Facebook.FacebookAuthenticationProvider.OnAuthenticated">
+      <summary>Obtiene o establece la función que se invoca cuando se invoca el método Authenticated.</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Facebook.FacebookAuthenticationProvider.OnReturnEndpoint">
+      <summary>Obtiene o establece la función que se invoca cuando se invoca el método ReturnEndpoint.</summary>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Facebook.FacebookAuthenticationProvider.ReturnEndpoint(Microsoft.Owin.Security.Facebook.FacebookReturnEndpointContext)">
+      <summary>Se invoca antes de que el objeto <see cref="T:System.Security.Claims.ClaimsIdentity" /> se guarde en una cookie local y el explorador se redirija a la dirección URL solicitada originalmente.</summary>
+      <returns>Un objeto <see cref="T:System.Threading.Tasks.Task" /> que representa la operación completada.</returns>
+    </member>
+    <member name="T:Microsoft.Owin.Security.Facebook.FacebookReturnEndpointContext">
+      <summary>Proporciona información de contexto a los proveedores de middleware.</summary>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Facebook.FacebookReturnEndpointContext.#ctor(Microsoft.Owin.IOwinContext,Microsoft.Owin.Security.AuthenticationTicket)">
+      <param name="context">Entorno OWIN</param>
+      <param name="ticket">El vale de autenticación.</param>
+    </member>
+    <member name="T:Microsoft.Owin.Security.Facebook.IFacebookAuthenticationProvider">
+      <summary>Especifica los métodos de devolución de llamada que el objeto <see cref="T:Microsoft.Owin.Security.Facebook.FacebookAuthenticationMiddleware" /> invoca para habilitar el control del desarrollador sobre el proceso de autenticación./&amp;amp;gt;</summary>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Facebook.IFacebookAuthenticationProvider.ApplyRedirect(Microsoft.Owin.Security.Facebook.FacebookApplyRedirectContext)">
+      <summary>Se llama cuando un elemento Challenge da lugar a un redireccionamiento para autorizar un extremo en el middleware de Facebook</summary>
+      <param name="context">Contiene el URI de redireccionamiento y <see cref="T:Microsoft.Owin.Security.AuthenticationProperties" /> del desafío</param>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Facebook.IFacebookAuthenticationProvider.Authenticated(Microsoft.Owin.Security.Facebook.FacebookAuthenticatedContext)">
+      <summary>Se invoca cuando Facebook autentica un usuario correctamente</summary>
+      <returns>Un objeto <see cref="T:System.Threading.Tasks.Task" /> que representa la operación completada.</returns>
+      <param name="context">Contiene información acerca de la sesión de inicio de sesión, así como el objeto <see cref="T:System.Security.Claims.ClaimsIdentity" /> del usuario.</param>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Facebook.IFacebookAuthenticationProvider.ReturnEndpoint(Microsoft.Owin.Security.Facebook.FacebookReturnEndpointContext)">
+      <summary>Se invoca antes de que el objeto <see cref="T:System.Security.Claims.ClaimsIdentity" /> se guarde en una cookie local y el explorador se redirija a la dirección URL solicitada originalmente.</summary>
+      <returns>Un objeto <see cref="T:System.Threading.Tasks.Task" /> que representa la operación completada.</returns>
+    </member>
+    <member name="T:Owin.FacebookAuthenticationExtensions">
+      <summary>Proporciona métodos de extensión para la autenticación de Facebook.</summary>
+    </member>
+    <member name="M:Owin.FacebookAuthenticationExtensions.UseFacebookAuthentication(Owin.IAppBuilder,Microsoft.Owin.Security.Facebook.FacebookAuthenticationOptions)">
+      <summary>Genera una autenticación de Facebook para una aplicación OWIN.</summary>
+      <returns>
+        <see cref="T:Owin.IAppBuilder" /> que genera la autenticación.</returns>
+      <param name="app">El generador de aplicación.</param>
+      <param name="options">Opciones de autenticación de Facebook.</param>
+    </member>
+    <member name="M:Owin.FacebookAuthenticationExtensions.UseFacebookAuthentication(Owin.IAppBuilder,System.String,System.String)">
+      <summary>Genera una autenticación de Facebook para una aplicación OWIN.</summary>
+      <returns>
+        <see cref="T:Owin.IAppBuilder" /> que genera la autenticación.</returns>
+      <param name="app">El generador de aplicación.</param>
+      <param name="appId">Identificador de la aplicación.</param>
+      <param name="appSecret">Secreto de la aplicación.</param>
+    </member>
+  </members>
+</doc>

@@ -10,7 +10,7 @@
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -19,10 +19,22 @@
                     <span class="icon-bar"></span>
                 </button>
                 @Html.ActionLink("CRMFacilito", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <a href="http://www.expea.mx"><img src="/imgs/Expea4.png" alt="Logo expea" /></a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Actividades", "Index", "Actividades")</li>
+                    <li>@Html.ActionLink("Clientes", "Index", "Clientes")</li>
+                    <li>@Html.ActionLink("Campañas", "Index", "Campanias")</li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" 
+                           aria-expanded="false">Tipos <span class="caret"></span></a>                        
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Tipos de actividad", "Index", "TipoActividades")</li>
+                            <li>@Html.ActionLink("Tipos de clientes", "Index", "TipoClientes")</li>
+                        </ul>
+                    </li>
                     <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
                     <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
                 </ul>

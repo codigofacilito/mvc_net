@@ -21,9 +21,15 @@ namespace CRMFacilitoInicial.Models
 
         public int Estado { get; set; }
 
+        public int TipoActividadId { get; set; }
+
+        public int ClienteId { get; set; }
+
         public TipoActividad Tipo { get; set; }
 
         public Cliente ClienteActividad { get; set; }
+
+        public int? CampaniaId { get; set; }
 
         public Campania CampaniaAct { get; set; }
     }
