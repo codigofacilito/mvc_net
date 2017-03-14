@@ -10,6 +10,7 @@ using CRMFacilitoInicial.Models;
 
 namespace CRMFacilitoInicial.Controllers
 {
+    [Authorize(Roles = "Admin, AdminAgenda")]
     public class CampaniasController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

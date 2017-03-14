@@ -4,11 +4,13 @@
     ViewBag.Title = "Index";
 }
 
+@if(User.IsInRole("AdminAgenda") || User.IsInRole("Admin"))
+{ 
 <p>
     <a class="btn btn-default" data-target="#modal-crear" data-toggle="modal"
        href="/Actividades/Create">Crear nueva</a>
 </p>
-
+}
 <div id="calendar">
 </div>
 

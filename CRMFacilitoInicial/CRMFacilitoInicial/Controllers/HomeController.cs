@@ -8,6 +8,7 @@ namespace CRMFacilitoInicial.Controllers
 {
     public class HomeController : Controller
     {
+        [Authorize]
         public ActionResult Index()
         {
             return View();
@@ -15,7 +16,7 @@ namespace CRMFacilitoInicial.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Sistema de Administración de datos de clientes.";
 
             return View();
         }

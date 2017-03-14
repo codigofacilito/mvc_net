@@ -23,20 +23,31 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Actividades", "Index", "Actividades")</li>
-                    <li>@Html.ActionLink("Clientes", "Index", "Clientes")</li>
-                    <li>@Html.ActionLink("Campañas", "Index", "Campanias")</li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" 
-                           aria-expanded="false">Tipos <span class="caret"></span></a>                        
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Tipos de actividad", "Index", "TipoActividades")</li>
-                            <li>@Html.ActionLink("Tipos de clientes", "Index", "TipoClientes")</li>
-                        </ul>
-                    </li>
-                    <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
+                    @if(User.Identity.IsAuthenticated)
+                    { 
+                        <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Actividades", "Index", "Actividades")</li>
+                    }
+                    @if(User.IsInRole("AdminClientes") || User.IsInRole("Admin"))
+                    { 
+                        <li>@Html.ActionLink("Clientes", "Index", "Clientes")</li>
+                    }
+                    @if(User.IsInRole("AdminAgenda") || User.IsInRole("Admin"))
+                    { 
+                        <li>@Html.ActionLink("Campañas", "Index", "Campanias")</li>
+                    }
+                    @if(User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Usuarios", "Index", "UsersAdmin")</li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" 
+                               aria-expanded="false">Tipos <span class="caret"></span></a>                        
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Tipos de actividad", "Index", "TipoActividades")</li>
+                                <li>@Html.ActionLink("Tipos de clientes", "Index", "TipoClientes")</li>
+                            </ul>
+                        </li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

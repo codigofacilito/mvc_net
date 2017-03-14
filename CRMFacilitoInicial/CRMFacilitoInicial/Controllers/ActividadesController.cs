@@ -10,6 +10,7 @@ using CRMFacilitoInicial.Models;
 
 namespace CRMFacilitoInicial.Controllers
 {
+    [Authorize]
     public class ActividadesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -46,6 +47,7 @@ namespace CRMFacilitoInicial.Controllers
             return View(db.Actividades.ToList());
         }
 
+        [Authorize(Roles="Admin, AdminAgenda")]
         // GET: Actividades/Create
         public ActionResult Create()
         {
@@ -57,6 +59,7 @@ namespace CRMFacilitoInicial.Controllers
         // POST: Actividades/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin, AdminAgenda")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(ActividadViewModel factividad)
@@ -111,6 +114,7 @@ namespace CRMFacilitoInicial.Controllers
         // POST: Actividades/Edit/5
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin, AdminAgenda")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ActividadViewModel factividad)
@@ -136,6 +140,7 @@ namespace CRMFacilitoInicial.Controllers
             return PartialView(factividad);
         }
 
+        [Authorize(Roles = "Admin, AdminAgenda")]
         // GET: Actividades/Delete/5
         public ActionResult Delete(int? id)
         {
